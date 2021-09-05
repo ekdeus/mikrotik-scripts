@@ -1,0 +1,19 @@
+{
+	:local sysname [/system identity get name];
+	:log info "Starting Backup Script...";
+	
+
+#Create Backup
+	:local backupfile ("backup-$sysname-" . [:pick [/system clock get date] 7 11] . [:pick [/system clock get date] 0 3] . [:pick [/system clock get date] 4 6] . "-" . [:pick [/system clock get time] 0 2] . "h" . [:pick [/system clock get time] 3 5] . "min.backup");
+	:log info "Creating Full Backup file...";
+	/system backup save name=$backupfile;
+	:delay 2;
+	
+
+#Create export
+	:local exportfile ("backup-$sysname-" . [:pick [/system clock get date] 7 11] . [:pick [/system clock get date] 0 3] . [:pick [/system clock get date] 4 6] . "-" . [:pick [/system clock get time] 0 2] . "h" . [:pick [/system clock get time] 3 5] . "min.rsc");
+	:log info "Creating Setup Script file...";
+	/export file=$exportfile;
+	:delay 2;
+	:log info "BackUp Completed...";
+}
