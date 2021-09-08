@@ -1,0 +1,9 @@
+/ip dns set allow-remote-requests=yes servers=8.8.8.8,8.8.4.4
+/interface bridge add name=inet-bridge
+/ip pool add name=inet-pool ranges=192.168.100.2-192.168.103.253
+/ip dhcp-server add address-pool=inet-pool disabled=no interface=inet-bridge lease-time=12h name=inet-dhcp
+/interface bridge port add bridge=inet-bridge interface=wlan1
+/ip address add address=192.168.100.1/22 comment=»Internet network» interface=inet-bridge network=192.168.100.0
+/ip dhcp-server network add address=192.168.100.0/22 comment=»Internet network» dns-server=8.8.8.8,208.67.222.222 gateway=192.168.100.1 netmask=22
+/ip firewall nat add action=masquerade chain=srcnat comment=»masquerade Internet network» src-address=192.168.100.0/22
+/interface wireless set wlan1 mode=ap-bridge ssid=WiFi_USB default-forwarding=no disabled=no

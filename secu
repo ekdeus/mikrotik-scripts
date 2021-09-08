@@ -1,0 +1,2 @@
+ip service set www address=aaa.bbb.ccc.ddd,aaa.bbb.ccc.ddd/eee
+ip service set winbox address=aaa.bbb.ccc.ddd,aaa.bbb.ccc.ddd/eee
